@@ -18,7 +18,7 @@ Once you've cloned the repository, you'll need to set up your environment variab
 2. Rename `env-templates` to `env`.
 
 3. Running the server
-    - If you're using Docker:
+    - If you're using Docker:  
         Run the following from the project directory, where `docker-compose.yaml` is.
         ```
         docker compose build
@@ -28,7 +28,7 @@ Once you've cloned the repository, you'll need to set up your environment variab
         At this point, everything should be up and running.
         ***IF DJANGO THROWS AN ERROR WHEN TRYING TO FIND THE DATABASE, YOU'VE FOUND A RACE CONDITION THAT RESULTS BECAUSE POSTGRES LIES ABOUT BEING READY. `docker compose down` followed by `docker compose up` again should let you win the race :-)***
 
-    - If you're not:
+    - If you're not:  
         Modify the `DATABASES` block in `src/event_manager/settings.py` to point to your postgres instance. Run the following from the project directory.
         ```
         python src/manage.py runserver
