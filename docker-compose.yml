@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+
+  api:
+    build: ./backend
+    depends_on:
+      - db
+    env_file:
+      - ./env/database.env
+      - ./env/django.env
+    working_dir: /opt/app/event_manager
+    command: python manage.py runserver 0:8000
+    volumes:
+      - ./src/event_manager:/opt/app/event_manager
+    ports:
+      - "8000:8000"
+
+  db:
+    env_file:
+      - ./env/database.env
+    build: ./database
+    volumes:
+      - ./data:/var/lib/postgresql/data
