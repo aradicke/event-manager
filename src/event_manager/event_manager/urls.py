@@ -24,4 +24,5 @@ urlpatterns = [
         TemplateView.as_view(template_name="health_check/smoke_check.html"),
         name="smoke_check",
     ),
+    path("events_api/", include("events.urls")),
 ]

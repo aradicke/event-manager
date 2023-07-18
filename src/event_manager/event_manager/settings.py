@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "health_check",
     "events",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -82,6 +83,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "event_manager.wsgi.application"
 
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
