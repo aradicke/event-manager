@@ -35,4 +35,12 @@ Once you've cloned the repository, you'll need to set up your environment variab
         ```
 3. Navigate to the health check page to verify that everything is working.
 
+## Getting Things Running
+1. Spin up the container
+
+2. Run the tests:  
+`docker exec event-manager-api-1 python manage.py test events`
+
+## Testing It Out
+
 ## Things To Add
