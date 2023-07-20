@@ -45,7 +45,30 @@ our_event = requests.get(event_url)
 print(f"HTTP status code {our_event.status_code}")
 
 # Let's update our event to add a location - we'll need to get the location id first!
+locations_url = endpoints["locations"]
+locations = requests.get(locations_url)
+print(f"HTTP status code {locations.status_code}")
+locations = locations.json()
+print(locations_url)
+print(f"Here's the location list - count: {locations['count']}")
+for location in locations["results"]:
+    print("\t ----")
+    for k, v in location.items():
+        print(f"\t {k}: {v}")
 
-# Let's search for our event to see if one already exists
 
-# Oops, there's a previous version of this event. Let's delete it.
+# We'll pick whatever is at ID 4. If this code fails, you'll want to pick a different ID based on the info you got above.
+
+update = requests.patch(event_url + "/", data={"location": locations_url + "4/"})
+print(f"Update HTTP status code {update.status_code}")
+
+# Let's search for our event to see if one like it already exists
+
+search = requests.get(endpoints["events"] + "search/", params={"search_term": "api"})
+print(f"Search HTTP status code {search.status_code}")
+search_results = search.json()
+
+# Oops, the event has been cancelled. Let's delete it.
+
+destroy = requests.delete(event_url)
+print(f"Delete HTTP status code {destroy.status_code}")

@@ -9,7 +9,7 @@ services:
       - ./env/database.env
       - ./env/django.env
     working_dir: /opt/app/event_manager
-    command: python manage.py runserver 0:8000
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python manage.py migrate; python manage.py runserver 0:8000'
     volumes:
       - ./src/event_manager:/opt/app/event_manager
     ports:
