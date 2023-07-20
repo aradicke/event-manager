@@ -31,10 +31,10 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Category
-        fields = ["name", "description"]
+        fields = ["id", "name", "description"]
 
 
 class LocationSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Location
-        fields = ["name", "description"]
+        fields = ["id", "name", "description"]

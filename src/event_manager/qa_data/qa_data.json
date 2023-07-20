@@ -1,0 +1,50 @@
+{
+    "categories": [
+        {
+            "name": "Code Review",
+            "description": "Talk about code"
+        },
+        {
+            "name": "Training",
+            "description": "Talk about learning"
+        },
+        {
+            "name": "Performance Review",
+            "description": "Talk about expectations"
+        },
+        {
+            "name": "Social",
+            "description": "Talk"
+        },
+        {
+            "name": "Candidate Interview",
+            "description": "Talk about skills"
+        },
+        {
+            "name": "Leadership Presentation",
+            "description": "Talk about goals"
+        }
+    ],
+    "locations": [
+        {
+            "name": "Main conference room",
+            "description": "100 seats, presentation equipment"
+        },
+        {
+            "name": "Clipper meeting room",
+            "description": "10 seats and impressive decorations"
+        },
+        {
+            "name": "Caravel meeting room",
+            "description": "15 seats and large work tables"
+        },
+        {
+            "name": "Schooner meeting room",
+            "description": "10 seats and a computer"
+        },
+        {
+            "name": "Breakroom",
+            "description": "Dining tables, a refrigerator, a coffeepot, and a microwave"
+        }
+    ]
+}
