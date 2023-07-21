@@ -1,12 +1,18 @@
 from django.contrib.postgres.search import SearchVector
 from rest_framework import viewsets
+from rest_framework.mixins import RetrieveModelMixin
 from rest_framework import permissions
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from events.serializers import EventSerializer, CategorySerializer, LocationSerializer
-from events.models import Event, Category, Location
+from events.serializers import (
+    EventSerializer,
+    CategorySerializer,
+    LocationSerializer,
+    EventUpdateSerializer,
+)
+from events.models import Event, Category, Location, EventUpdate
 
 
 class EventViewSet(viewsets.ModelViewSet):
@@ -14,7 +20,9 @@ class EventViewSet(viewsets.ModelViewSet):
     Basic event endpoint
     """
 
-    queryset = Event.objects.all().order_by("-start_time")
+    queryset = (
+        Event.objects.all().prefetch_related("eventupdate_set").order_by("-start_time")
+    )
     serializer_class = EventSerializer
     permission_classes = [permissions.AllowAny]
 
@@ -53,3 +61,18 @@ class LocationViewSet(viewsets.ModelViewSet):
     queryset = Location.objects.all().order_by("name")
     serializer_class = LocationSerializer
     permission_classes = [permissions.AllowAny]
+
+
+class EventUpdateViewSet(viewsets.GenericViewSet, RetrieveModelMixin):
+    serializer_class = EventUpdateSerializer
+    queryset = EventUpdate.objects.all()
+    permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self):
+        """
+        Optionally restricts the returned purchases to a given user,
+        by filtering against a `username` query parameter in the URL.
+        """
+        queryset = EventUpdate.objects.all()
+        print("Great Michael")
+        return queryset

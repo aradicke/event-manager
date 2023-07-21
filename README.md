@@ -47,6 +47,7 @@ Each example builds on the previous one - some of the variables may be reference
 ```
 import requests
 from datetime import datetime, timezone, timedelta
+import pytz
 
 base_url = "http://127.0.0.1:8000/events_api/v1/"
 
@@ -75,7 +76,7 @@ for event in events["results"]:
 ```
 ### Now we can add an event and retrieve it
 ```
-event_time = datetime.now(timezone.utc) + timedelta(days=2)
+event_time = datetime.now(pytz.timezone("US/Central")) + timedelta(days=2)
 event_data = {
     "title": "API discussion",
     "description": "Talk about how the API should work",

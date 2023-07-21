@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.core.exceptions import ValidationError
 
 
@@ -36,3 +37,12 @@ class Location(models.Model):
 
     def __str__(self):
         return f"{self.name} id:{self.id}"
+
+
+class EventUpdate(models.Model):
+    event = models.ForeignKey("events.Event", on_delete=models.CASCADE)
+    previous_values = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL
+    )

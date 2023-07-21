@@ -1,18 +1,43 @@
-from events.models import Event, Category, Location
+from events.models import Event, Category, Location, EventUpdate
 from rest_framework import serializers
 
 
+class EventUpdateSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = EventUpdate
+        fields = ["id", "event", "created_at", "user", "previous_values"]
+
+
+class EventUpdateMiniSerializer(serializers.HyperlinkedModelSerializer):
+    detail_url = serializers.HyperlinkedIdentityField(
+        view_name="eventupdate-detail", read_only=True
+    )
+
+    class Meta:
+        model = EventUpdate
+        fields = ["created_at", "previous_values", "detail_url"]
+
+
 class EventSerializer(serializers.HyperlinkedModelSerializer):
+    detail_url = serializers.HyperlinkedIdentityField(
+        view_name="event-detail", read_only=True
+    )
+    updates = EventUpdateMiniSerializer(
+        many=True, source="eventupdate_set", read_only=True
+    )
+
     class Meta:
         model = Event
         fields = [
             "id",
+            "detail_url",
             "title",
             "description",
             "start_time",
             "end_time",
             "location",
             "category",
+            "updates",
         ]
 
     def to_representation(self, instance):
