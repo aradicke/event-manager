@@ -1,11 +1,11 @@
 # Event Manager
 This is a little setup for running a very basic event managment program locally. It's a demonstrator and template which runs using development servers and without authenticationa and authorization built in. In production, it would be behind a reverse proxy with a WSGI server.
 ## Prerequisites
-To run this, you'll need either Docker or your own Postgres instance. You can probably run in locally in a virtual environment if you have your own Postgres instance.
+Docker is the easiest way to run this. You can probably run in locally in a virtual environment if you bring your own Postgres instance.
 ## Usage
 Once you've cloned the repository, you'll need to set up your environment variables.
 1. In the `env-templates` directory, you'll find two files.
-   - In `database.env` you may want to change `POSTGRES_PASSWORD`. For this demo, it really isn't necessary since only the application will be able to reach it within the Docker network
+   - In `database.env` you may want to change `POSTGRES_PASSWORD`. For this demo, it isn't necessary since only the application will be able to reach it within the Docker network
    - In 'django.env' you can change the `SECRET_KEY` which is used to fill the Django SECRET_KEY. If you're only running locally this is probably not necessary, but should you want to generate a new key, you can use the code below and paste it in. Production keys must never be committed:
    ```
    # If Django is not installed
