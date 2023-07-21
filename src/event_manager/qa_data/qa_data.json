@@ -46,5 +46,23 @@
             "name": "Breakroom",
             "description": "Dining tables, a refrigerator, a coffeepot, and a microwave"
         }
+    ],
+    "events": [
+        {
+            "title": "API Discussion",
+            "description": "Discuss the API.",
+            "start_time": "2023-07-26 14:00+0000",
+            "end_time": "2023-07-26 15:00+0000",
+            "location": "Clipper meeting room",
+            "category": "Code Review"
+        },
+        {
+            "title": "Interview Aaron",
+            "description": "Discuss skill and goal alignment.",
+            "start_time": "2023-07-27 18:00+0000",
+            "end_time": "2023-07-27 19:00+0000",
+            "location": "Schooner meeting room",
+            "category": "Candidate Interview"
+        }
     ]
 }

@@ -1,7 +1,7 @@
 # Event Manager
 This is a little setup for running a very basic event managment program locally. It's a demonstrator and template which runs using development servers and without authenticationa and authorization built in. In production, it would be behind a reverse proxy with a WSGI server.
 ## Prerequisites
-To run this, you'll need either Docker or your own Postgres instance.
+To run this, you'll need either Docker or your own Postgres instance. You can probably run in locally in a virtual environment if you have your own Postgres instance.
 ## Usage
 Once you've cloned the repository, you'll need to set up your environment variables.
 1. In the `env-templates` directory, you'll find two files.
@@ -26,11 +26,12 @@ Once you've cloned the repository, you'll need to set up your environment variab
         docker compose up
         ```
         At this point, everything should be up and running. Navigate to http://127.0.0.1:8000/health_check and you should see a simple HTML page.
-        ***IF DJANGO THROWS AN ERROR WHEN TRYING TO FIND THE DATABASE, YOU'VE FOUND A RACE CONDITION THAT RESULTS BECAUSE DOCKER LIES ABOUT POSTGRES BEING READY. `docker compose down` followed by `docker compose up` again should let you win the race :-)***
+        ***If there's an error about Django not being able to find the database, there is a race condition that can happen because of how Docker handles the Postgres container's ready signal. If this happens, `docker compose down` followed by `docker compose up` again should let you win the race :-)***
 
     - If you're not:  
-        Modify the `DATABASES` block in `src/event_manager/settings.py` to point to your postgres instance. Run the following from the project directory.
+        Create a virtual environment and install the requirements.txt, preferably with pip. Modify the `DATABASES` block in `src/event_manager/settings.py` to point to your postgres instance. Run the following from the project directory.
         ```
+        python src/manage.py migrate
         python src/manage.py runserver
         ```
 
@@ -135,3 +136,7 @@ This is a pretty standard Django app. The project runs on a server (here the Dja
 1. Since authentication is assumed, there's not a lot of structure here for authorization. The good thing is that this basically comes built in with Django, and once user identification data is available it's trivial to integrate it into the endpoints via decorators, to handle things like distinguishing among user types. Once you have users, you can create models and the attendant tables to distinguish between user types and abilities, limit who can see what events with filters, and a lot of other things. 
 2. Django REST Framework is a great way to let your models do much of the work. Once it's set up a lot of things can just plug and play and added features can be dropped in quickly.
 3. I've avoided pre-optimizing. The nature of this application is well within the performance parameters of Django and DRF, but if it suddenly needed better performance there are lots of options like caching, ORM and SQL optimization, and creating extra servers that can be used.
+4. This is a highly expandable space. It's easy to add to the models and add the serializers to customize this to fit various needs. Features like bulk uploads, fine-grained authorization, attendance tracking and others all flow naturally.
+
+## Tracking & Logging
+There is basic tracking for event updates. Such changes are vital sometimes to be sure of what a client or user saw when they were using the system. Django also has some built-in logging that is readily extensible. For time reasons, I haven't added any new logging but it's a simple add to the various views, especially once there's some user data coming in.
